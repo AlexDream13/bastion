@@ -1,3 +1,5 @@
+@import "https://fonts.googleapis.com/css?family=Fira+Sans:100,200,300,400,500,600,700,800,900&subset=cyrillic";
+
 html,
 body,
 div,
@@ -171,10 +173,10 @@ img {
 }
 
 body {
-  font-family: "Worksans",sans-serif;
+  font-family: "Fira Sans",sans-serif;
   font-weight: 400;
   font-size: 1em;
-  background-color: #1c121f;
+  background-color: #e5e5e5;
 }
 
 .wrapper {
@@ -289,8 +291,4 @@ body {
   background: #00528c;
   border-color: #00528c;
   color: #fdfdfd;
-}
-
-.header {
-  background: url("../img/hero-bg.avif") no-repeat;
 }

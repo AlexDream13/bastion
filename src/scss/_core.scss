@@ -1,9 +1,9 @@
-/*Основные стили*/
+//Основные стили
 body {
-  font-family: 'Worksans', sans-serif;
+  font-family: 'Fira Sans', sans-serif;
   font-weight: 400;
   font-size: 1em;
-  background-color: #1C121F;
+  background-color: #e5e5e5;
 }
 //Оболочка
 .wrapper {
@@ -23,17 +23,14 @@ body {
 .wrap {
   @include min-max(320px, 100%, 0);
 }
-
 .container {
   @include min-max(320px, 1360px, 15px);
   margin-top: 5px;
-  
 }
 //Для скрин ридеров
 .sr-only {
   @include sr-only;
 }
-
 .sr-only-focusable {
   @include sr-only-focusable;
 }
