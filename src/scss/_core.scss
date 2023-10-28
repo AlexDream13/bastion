@@ -1,9 +1,14 @@
 //Основные стили
+html,body{
+  margin: 0;
+  box-sizing: border-box;
+}
 body {
   font-family: 'Fira Sans', sans-serif;
   font-weight: 400;
   font-size: 1em;
   background-color: #e5e5e5;
+  line-height: 1.2;
 }
 //Оболочка
 .wrapper {
@@ -24,7 +29,7 @@ body {
   @include min-max(320px, 100%, 0);
 }
 .container {
-  @include min-max(320px, 1360px, 15px);
+  @include min-max(320px, 1170px, 15px);
   margin-top: 5px;
 }
 //Для скрин ридеров
@@ -64,16 +69,17 @@ body {
 // Стили кнопок
 .btn {
   background: $primary;
-  border-radius: 57px;
+  border-radius: 4px;
   border: 2px solid $primary;
-  font-family: 'Gilroy';
-  font-weight: 700;
-  font-size: em(16);
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 500;
+  font-size: em(14);
   line-height: 1;
   white-space: nowrap;
   color: $btnTextWhite;
-  padding: 12px 28px;
+  padding: 12px 46px;
   box-sizing: border-box;
+  cursor: pointer;
   transition: all 0.3s;
   &:hover{
     background: $primaryHover;

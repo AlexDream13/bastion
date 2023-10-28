@@ -1,10 +1,10 @@
 $w: #fff;
 $b: #000;
-$btnTextWhite: #fdfdfd;
-$primary: #003459;
-$primaryDark: #002a48;
-$primaryHover: #00528c;
-$primaryDark40: #0078cd;
+$btnTextWhite: #fff;
+$primary: #E30614;
+$primaryDark: darken(#E30614, 10%);
+$primaryHover: lighten(#E30614,10%);
+$primaryDark40: darken(#E30614,40%);
 
 $mouse-device: "(hover:hover) and (pointer: fine)";
 /* exemple
