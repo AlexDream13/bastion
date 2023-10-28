@@ -1,0 +1,213 @@
+@use 'sass:math';
+
+@mixin min-max($min-width, $max-width, $padding) {
+  min-width: $min-width;
+  max-width: $max-width;
+  padding: 0 $padding;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+$content-width:1360; //ширина макета
+$maxWidthContainer: 1360;// Ширина ограничивающего контейнера (0 = нет ограничения)
+$browser-context: 16;//Размер шрифта
+$font-size:16;//Размер шрифта
+// Минимальная ширина страницы
+$minWidth: 320;
+// Ширина полотна (макета)
+$maxWidth: 1920;
+
+// Общий отступ у контейнера
+// (30 = по 15px слева и справа, 0 = нет отступа)
+$containerPadding: 30;
+
+// Ширина срабатывания первого брейкпоинта
+$containerWidth: $maxWidthContainer + $containerPadding;
+
+//Вычисление размера шрифта в ЕМ из РХ
+@function em($pixels, $context: $browser-context) {
+  @return #{calc($pixels / $context)}em;
+  // font-size: em(24);
+}
+//Вычисление размера шрифта в RЕМ из РХ
+@function rem($pixels, $context: $browser-context) {
+  @return #{calc($pixels / $context)}rem;
+  // font-size: rem(24px);
+}
+@function strip-unit($number) {
+  @if type-of($number) == number {
+    @if not unitless($number) {
+      @return $number / ($number * 0 + 1); // Вот в чем фокус!
+    } @else {
+      @error "'#{$number}' не имеет блока!";
+    }
+  } @else {
+    @error "'#{$number}' это не число a #{type-of($number)}.";
+  }
+}
+@function lh( $font-size, $content-width, $ratio: 1.61803398875 ) {
+	$font-size: strip-unit($font-size);
+	$content-width: strip-unit( $content-width );
+		
+	@return $ratio - ( ( 1 / ( 2 * $ratio ) ) * ( 1 - ( $content-width / ( math.pow( ( $font-size * $ratio ), 2 ) ) ) ) );
+}
+/*Вычисление адаптивного шрифта*/
+
+@mixin adaptiv-font($pcSize, $mobSize){
+  $addSize: $pcSize - $mobSize;
+  $addMobSize: $addSize + $addSize * 0.7;
+  @media (max-width:767px){
+    font-size: calc(#{$mobSize + px} + #{$addMobSize} * ((100vw - 320px) / #{$maxWidth}));
+  }
+  @media (min-width:767px){
+    font-size: calc(#{$mobSize + px} + #{$addSize} * (100vw / #{$maxWidth}));
+  }
+  /*Подключение @include adaptiv-font(40,24); где 40 макс размер шрифта, 24 мин моб размер шрифта*/
+}
+// Брейк-поинты
+$pc: em($containerWidth); // ПК, ноутбуки, некоторые планшеты в горизонтальном положении
+$tablet: em(991.98); // Планшеты, некоторые телефоны в горизонтальном положении
+$mobile: em(767.98); // Телефоны L
+$mobileSmall: em(479.98); // Телефоны S
+
+// Тип адаптива:
+// 1 = отзывчивость (у контейнера нет брейкпоинтов),
+// 2 = по брейк-поинтам (контейнер меняет свою ширину по брейк-поинтам)
+$responsiveType: 1;
+
+// Only display content to screen readers
+@mixin sr-only {
+  position: absolute;
+  width: 0.062rem;
+  height: 0.062rem;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+  border: 0;
+}
+
+// Use in conjunction with .sr-only to only display content when it's focused.
+@mixin sr-only-focusable {
+  &:active,
+  &:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    clip-path: none;
+  }
+}
+/* Миксин стрелка, направление, размер, цвет.
+Нпример: @include arrow(up, 10px, #efefef); - стрелка вверх*/
+@mixin arrow($direction: down, $size: 5px, $color: #555) {
+    width: 0;
+    height: 0;
+    @if ($direction == left) {
+       border-top: $size solid transparent;
+       border-bottom: $size solid transparent; 
+       border-right: $size solid $color;
+    }
+    @else if ($direction == right) {
+       border-top: $size solid transparent;
+       border-bottom: $size solid transparent; 
+       border-left: $size solid $color;
+    }
+    @else if ($direction == down) {
+       border-left: $size solid transparent;
+       border-right: $size solid transparent;
+       border-top: $size solid $color;
+    }
+    @else {
+       border-left: $size solid transparent;
+       border-right: $size solid transparent;
+       border-bottom: $size solid $color;
+    }
+ }
+ /*Быстрый миксин, чтобы скрыть или показать элемент,
+  полезный для анимации постепенного появления / исчезновения. $type - hide/show*/
+ @mixin fade($type) {
+    @if $type== "hide" {
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 1s, opacity 1s;
+    } @else if $type== "show" {
+      visibility: visible;
+      opacity: 1;
+      transition: visibility 1s, opacity 1s;
+    }
+  }
+  /*Фоновый переход  в кнопках
+$initial - начальный цвет
+$hover - цвет при наведении*/
+  @mixin btn-bg($initial, $hover, $inverted: false) {
+  background: linear-gradient(
+    90deg,
+    $hover 0%,
+    $hover 50%,
+    $initial 50%,
+    $initial 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 200% 100%;
+
+  background-position: right bottom;
+  @if $inverted {
+    background-position: left bottom;
+  }
+  transition: background-position 0.25s ease-out;
+
+  &:hover {
+    background-position: left bottom;
+    @if $inverted {
+      background-position: right bottom;
+    }
+  }
+}
+//Адаптивное свойство
+@mixin adaptiveValue($property, $startSize, $minSize, $widthFrom: $containerWidth, $widthTo: $minWidth, $keepSize: 0) {
+  // Брейк-поинты в EM
+  $widthFromMedia: em($widthFrom);
+  $widthToMedia: em($widthTo);
+  // Ночальное и конечное значение в REM
+  $minSizeValue: rem($minSize);
+  $startSizeValue: rem($startSize);
+  // Пересчитываем переменные относительно
+  // размера шрифта по умолчанию
+  $minWidth: math.div($minWidth, 16);
+  $maxWidth: math.div($maxWidth, 16);
+  $containerWidth: math.div($containerWidth, 16);
+  $addSize: math.div($startSize - $minSize, 16);
+  $widthTo: math.div($widthTo, 16);
+  $widthFrom: math.div($widthFrom, 16);
+  // Если указано ограничение у контейнера,
+  // либо указана стартовая или конечная ширина
+  // включаем режим работы в промежутке ширин
+  @if ($maxWidthContainer > 0 or $widthFrom != $containerWidth or $widthTo != $minWidth) and $widthFrom > $widthTo {
+    // Если стартовая ширина равна ширине контейнера + отступы,
+    // или указана настройка "keepSize" ставим значение
+    // по умолчанию равное стартовому размеру
+    @if $widthFrom == $containerWidth or $keepSize == 1 or $keepSize == 2 {
+      @media (min-width: $widthFromMedia) {
+        #{$property}: $startSizeValue;
+      }
+    }
+    // Адаптируем размер в промежутке между указанными ширинами вьюпорта
+    @media (min-width: $widthToMedia) and (max-width: $widthFromMedia) {
+      #{$property}: calc(#{$minSizeValue} + #{$addSize} * (((100vw - #{$widthTo + rem})) / ((#{$widthFrom - $widthTo}))));
+    }
+    // Если конечная ширина равна минимальной ширине
+    // или указана настройка "keepSize" ставим значение
+    // по умолчанию равное конечному размеру
+    @if $widthTo == $minWidth or $keepSize == 1 or $keepSize == 3 {
+      @media (max-width: $widthToMedia) {
+        #{$property}: $minSizeValue;
+      }
+    }
+  } @else {
+    // Режим работы по всей ширине вьюпорта
+    #{$property}: calc(#{$minSizeValue} + #{$addSize} * (((100vw - #{$widthTo + rem})) / ((#{$maxWidth - $widthTo}))));
+  }
+}
