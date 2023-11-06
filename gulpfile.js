@@ -48,15 +48,15 @@ function fonts() {
 		);
 }
 function images() {
-	return src(["src/img/src/*.*", "!src/img/src/*.svg", "!src/img/src/*.gif"])
+	return src(["src/img/src/**/*.*", "!src/img/src/**/*.svg", "!src/img/src/**/*.gif"])
 		.pipe(newer("src/img"))
 		.pipe(avif({ quality: 60 }))
 
-		.pipe(src("src/img/src/*.*", "!src/img/src/*.svg"))
+		.pipe(src("src/img/src/**/*.*", "!src/img/src/**/*.svg"))
 		.pipe(newer("src/img"))
 		.pipe(webp())
 
-		.pipe(src("src/img/src/*.*", "!src/img/src/*.svg"))
+		.pipe(src("src/img/src/**/*.*", "!src/img/src/**/*.svg"))
 		.pipe(newer("src/img"))
 		.pipe(imagemin())
 
@@ -106,7 +106,7 @@ function styles() {
 }
 
 function watching() {
-	watch(["src/img/src"], images);
+	watch(["src/img/src/**/*"], images);
 	watch(["src/scss/**/*.scss"], styles);
 	watch(["src/js/main.js"], scripts);
 	watch(["src/components/*", "src/pages/*"], pages);

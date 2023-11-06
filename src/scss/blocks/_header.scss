@@ -200,11 +200,32 @@
   flex-direction: column;
   align-items:center;
   gap: 7px;
-  span{
+  cursor:pointer;
+  p{
     font-size: 12px;
     font-weight: 300;
     letter-spacing: 0.108px;
   }
 }
 .header__basket {
+  position: relative;
+  &--counter{
+    display: inline-flex;
+    align-items:center;
+    justify-content: center;
+    width: 12px;
+    height: 12px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    box-sizing: content-box;
+    position: absolute;
+    top: -5px;
+    right: 8px;
+    background: $primary;
+    color: #fff;
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 0.072px;
+  }
 }
