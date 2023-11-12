@@ -4,7 +4,8 @@
   "description": "gulp Vados",
   "main": "main.js",
   "scripts": {
-    "start": "gulp && gulp build"
+    "start": "gulp",
+    "build": "gulp build"
   },
   "author": "",
   "license": "ISC",

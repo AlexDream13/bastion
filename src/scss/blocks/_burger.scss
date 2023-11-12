@@ -1,54 +1,47 @@
-.burger-block{
-  display: none;
-  @media (max-width: $mobile){
-    display: block;
-  }
-  aspect-ratio: 1/1;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background-color: blue;
-  cursor: pointer;
-}
 //------Burger-menu------//
 .header__burger {
   display: none;
-  @media (max-width: $mobile){
+  @media (max-width: 980px){
     display: block;
+    
   }
-  position: relative;
-  width: 20px;
+  grid-area: burger;
+  align-self: center;
+  justify-self: end;
+  width: 24px;
   height: 12px;
   position: relative;
   z-index: 3;
-  margin-top: 7px;
   text-align: center;
+  cursor: pointer;
 }
 .header__burger span{
   position: absolute;
-  background-color: #fff;
+  background-color: #000;
   position: absolute;
-  left: 7px;
+  left: 0;
   width: 100%;
-  height: 1.6px;
-  top: 9px;
+  height: 2px;
+  top: 5px;
+  border-radius: 30px;
   transition: all 0.3s ease 0s;
 }
 .header__burger:before,
 .header__burger:after{
   content: '';
-  background-color: #fff;
+  background-color: #000;
   position: absolute;
   width: 100%;
-  height: 1.46px;
-  left: 7px;
+  height: 2px;
+  left: 0;
+  border-radius: 30px;
   transition: all 0.3s ease 0s;
 }
 .header__burger:before{
-  top: 3px;
+  top: 0;
 }
 .header__burger:after{
-  bottom: -5px;
+  bottom: 0;
 }
 
 .header__burger.active span{
