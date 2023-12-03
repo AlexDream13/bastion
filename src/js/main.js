@@ -37,3 +37,8 @@ document.querySelectorAll('.dropdown__toggle').forEach(e => {
 		});
 	});
 });
+//-------Burger-----------
+const headerBurger = document.querySelector('.header__burger');
+headerBurger.addEventListener("click", function () {
+	headerBurger.classList.toggle('active');
+});
