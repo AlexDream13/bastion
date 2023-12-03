@@ -3,20 +3,31 @@
   margin-top: -5px;
   padding-top: 80px;
   padding-bottom: 30px;
-  margin-bottom: 300px;
+  
+  @media (max-width: em(475)){
+    padding-top: 50px;
+  }
 
   &__list {
     display: flex;
     justify-content: space-between;
     gap: 20px;
     margin-top: 30px;
-    
+    @media (max-width: em(1024)){
+      flex-wrap: wrap;
+      justify-content: space-around; 
+    }
+     
   }
 
   &__item {
     width: 365px;
     border-radius: 5px;
     border: 1px solid #c4c4c4;
+    @media (max-width: em(475)){
+      min-width: 240px;
+      width: 100%;
+    }
   }
 
   &__card {
@@ -26,32 +37,46 @@
 }
 
 .card {
+  width: 100%;
   height: 100%;
   padding-top: 22px;
   padding-left: 25px;
   padding-bottom: 43px;
   padding-right: 10px;
+  @media (max-width: em(475)){
+      padding: 15px 10px 17px 19px;
+  }
 
   &__link {
     display: block;
     text-align: center;
 
     &_img {
+      width: 100%;
+      height: 100%;
     }
   }
 
   &__image {
+    width: 100%;
+      height: 100%;
+      object-fit: contain;
   }
 
   &__info {
     margin-top: auto;
+    @media (max-width: em(475)){
+       margin-top: 15px; 
+    }
   }
 
   &__title {
     color: #000;
     text-align: center;
     font-size: 18px;
+    @include adaptiv-font(18, 16);
     font-weight: 500;
+    
   }
 
   &__list {
@@ -59,10 +84,15 @@
     flex-direction: column;
     gap: 15px;
     margin-top: 25px;
+    @media (max-width: em(475)){
+      gap: 10px;
+      margin-top: 15px;  
+    }
     li {
       color: #000;
       font-size: 15px;
       font-weight: 300;
+      
     }
   }
 

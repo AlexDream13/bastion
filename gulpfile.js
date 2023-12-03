@@ -89,9 +89,7 @@ function styles() {
 	return (
 		src("src/scss/style.scss")
 			.pipe(
-				autoprefixer({
-					overrideBrowserslist: ["last 10 version"],
-				})
+				autoprefixer()
 			)
 			// .pipe(concat("style.min.css"))
 			.pipe(
